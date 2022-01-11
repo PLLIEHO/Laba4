@@ -29,7 +29,7 @@ public class CrewMember extends Human{
         if (location.getHumans().contains(this) && this.getState()!=States.SLEEPY) {
             System.out.println(getName() + " заявляет, что необходимо провести ревизию продуктов на " + location);
         }
-        else if(this.getState()!=States.SLEEPY){
+        else if(location.getHumans().contains(this)){
             System.out.println(getName() + " сейчас спит. Никаких ревизий.");
         }
         else{

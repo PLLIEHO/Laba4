@@ -8,8 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         Location bridge = new Location(LocationTypes.BRIDGE);
-        CrewMember neznayka = new CrewMember("Незнайка", 10, States.NOTHUNGRY);
-        CrewMember ponchik = new CrewMember("Пончик", 9, States.HUNGRY);
+        Human neznayka = new CrewMember("Незнайка", 10, States.NOTHUNGRY);
+        Human ponchik = new CrewMember("Пончик", 9, States.HUNGRY);
         Human spy = new Human("Незнакомец", 20, States.NOTHUNGRY);
         System.out.println();
 
@@ -33,7 +33,6 @@ public class Main {
         System.out.println();
 
         Item chop = Item.CHOP;
-        Item saus = Item.SAUSAGE;
         System.out.println();
         System.out.println(neznayka.getDescription());
         neznayka.eat(chop);
@@ -41,11 +40,11 @@ public class Main {
 
         System.out.println();
         System.out.println(ponchik.getDescription());
-        ponchik.declare(food);
-        for(int i=0; i<11; i++){
-            ponchik.randomEat();
+        ((CrewMember) ponchik).declare(food);
+        for (int i = 0; i < 11; i++) {
+            ((CrewMember) ponchik).randomEat();
             FoodCheckable checker = x -> {
-                int var = 10-x;
+                int var = 10 - x;
                 return "Можно съесть ещё " + var + " блюд";
             };
             System.out.println(checker.compare(i));
@@ -55,5 +54,8 @@ public class Main {
         ponchik.sleep(food, 10);
         food.removeHumanToLocation(ponchik);
         System.out.println(ponchik.getDescription());
+        ponchik.wakeUp();
+        food.removeHumanToLocation(ponchik);
+        food.removeHumanToLocation(neznayka);
     }
 }

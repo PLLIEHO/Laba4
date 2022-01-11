@@ -1,7 +1,5 @@
 package com.company.human;
 
-import com.company.location.AbstractLocation;
-
 import java.util.Objects;
 
 public abstract class AbstractHuman {
@@ -71,7 +69,7 @@ public abstract class AbstractHuman {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age);
+        return Objects.hash(name, age, state, weight);
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.company.human;
 
+import java.util.ArrayList;
+
 public enum Item {
     CHOP("Космическая котлета", 10),
-    SAUSAGE("Космическая сосиска", 5),
     CHEESE("Космический сыр", 12),
     POTATO("Космическая картошка", 8),
     MEAT("Космическое мясо", 20),
@@ -10,7 +11,8 @@ public enum Item {
     CURD("Космический творог", 14),
     PIE("Космический пирог",30),
     CABBAGE("Космическая капуста", 7),
-    SOUP("Космический суп", 18);
+    SOUP("Космический суп", 18),
+    SAUSAGE("Космическая сосиска", 5),;
 
     private final String name;
     private final int KKal;
@@ -26,4 +28,5 @@ public enum Item {
     public String toString() {
         return name;
     }
+
 }

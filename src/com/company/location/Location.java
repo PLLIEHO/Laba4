@@ -6,17 +6,17 @@ import com.company.human.States;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.company.location.LocationTypes.LADDER;
 
 public class Location extends AbstractLocation implements ChangeLocation {
-    private ArrayList<Human> humanList;
+    private List<Human> humanList = new ArrayList<>();
     private LocationTypes type;
-    private ArrayList<Location> zerogravities = new ArrayList<>();
+    private List<Location> zerogravities = new ArrayList<>();
 
     public Location(LocationTypes type) {
         super(type);
-        this.humanList = new ArrayList<>();
 
         System.out.println("Локация " + type + " создана. ");
         System.out.println(getDescription());
@@ -98,11 +98,11 @@ public class Location extends AbstractLocation implements ChangeLocation {
         }
     };
 
-    public ArrayList<Location> getZerogravs() {
+    public List<Location> getZerogravs() {
         return zerogravities;
     }
 
-    public ArrayList<Human> getHumans() {
+    public List<Human> getHumans() {
         return humanList;
     }
 }
