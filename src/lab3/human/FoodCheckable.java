@@ -1,4 +1,4 @@
-package com.company.human;
+package lab3.human;
 @FunctionalInterface
 
 public interface FoodCheckable {

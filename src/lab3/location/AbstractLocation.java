@@ -1,4 +1,4 @@
-package com.company.location;
+package lab3.location;
 
 import java.util.Objects;
 

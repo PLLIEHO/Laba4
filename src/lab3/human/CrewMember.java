@@ -1,6 +1,6 @@
-package com.company.human;
+package lab3.human;
 
-import com.company.location.Location;
+import lab3.location.Location;
 
 public class CrewMember extends Human{
     private Stomach stomach;

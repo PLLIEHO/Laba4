@@ -1,6 +1,6 @@
-package com.company.human;
+package lab3.human;
 
-import com.company.location.Location;
+import lab3.location.Location;
 
 public interface Sleepable {
     void sleep(Location location, int time);

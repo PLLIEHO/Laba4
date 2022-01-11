@@ -1,4 +1,4 @@
-package com.company.human;
+package lab3.human;
 
 public interface Edible {
     void eat(Item item);

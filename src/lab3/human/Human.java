@@ -1,7 +1,7 @@
-package com.company.human;
+package lab3.human;
 
-import com.company.location.Location;
-import com.company.location.TimeSkip;
+import lab3.location.Location;
+import lab3.location.TimeSkip;
 
 public class Human extends AbstractHuman implements Edible, Sleepable {
     private Stomach stomach;

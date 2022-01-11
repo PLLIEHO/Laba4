@@ -1,14 +1,14 @@
-package com.company.location;
+package lab3.location;
 
-import com.company.human.CrewMember;
-import com.company.human.Human;
-import com.company.human.States;
+import lab3.human.CrewMember;
+import lab3.human.Human;
+import lab3.human.States;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.company.location.LocationTypes.LADDER;
+import static lab3.location.LocationTypes.LADDER;
 
 public class Location extends AbstractLocation implements ChangeLocation {
     private List<Human> humanList = new ArrayList<>();

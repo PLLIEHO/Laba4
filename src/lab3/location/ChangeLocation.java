@@ -1,6 +1,6 @@
-package com.company.location;
+package lab3.location;
 
-import com.company.human.Human;
+import lab3.human.Human;
 
 public interface ChangeLocation {
     void addHumanToLocation(Human human);

@@ -1,4 +1,4 @@
-package com.company.location;
+package lab3.location;
 
 public class TimeSkip {
     private int currentTime = 0;

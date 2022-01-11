@@ -1,4 +1,4 @@
-package com.company.human;
+package lab3.human;
 
 import java.util.ArrayList;
 import java.util.List;

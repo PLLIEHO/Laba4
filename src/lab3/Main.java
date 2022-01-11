@@ -1,8 +1,9 @@
-package com.company;
+package lab3;
 
-import com.company.human.*;
-import com.company.location.Location;
-import com.company.location.LocationTypes;
+import lab3.human.*;
+import lab3.location.Location;
+import lab3.location.LocationTypes;
+import lab3.human.*;
 
 public class Main {
 
