@@ -27,7 +27,7 @@ public class Location extends AbstractLocation implements ChangeLocation {
         if (human.getState() != States.SLEEPY) {
             if (humanList.contains(human)) {
                 System.out.println(human.getName() + " уже находится на локации " + getType());
-            } else if (human instanceof CrewMember) {
+            } else if (human instanceof CrewMember||this.getType()==LocationTypes.ROOM) {
                 System.out.println("Человек " + human.getName() + " зашёл на локацию  " + getType());
 
                 humanList.add(human);
@@ -64,6 +64,9 @@ public class Location extends AbstractLocation implements ChangeLocation {
         else if(getType() == LocationTypes.FOODFACILITY) {
             returns = getType() + " - это просторный склад, весь уставленный стелажами с ящиками. Тело пробирает холод.";
         }
+        else if(getType() == LocationTypes.ROOM){
+            returns = getType() + " - это маленькая комната, на стенах которой закреплены кровати";
+        }
         else{
             returns = "Неизвестная локация. Страшновато здесь.";
         }
@@ -75,7 +78,7 @@ public class Location extends AbstractLocation implements ChangeLocation {
             System.out.println(human + " проходит через локацию " + getType());
             return true;
         }
-        else if (humanList.contains(human)){
+        else if (humanList.contains(human)&&this.getType()!=LocationTypes.ROOM){
             System.out.println(human + " не может пройти через локацию. Причина: низкий уровень доступа.");
             return false;
         }

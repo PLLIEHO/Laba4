@@ -3,7 +3,8 @@ package lab3.location;
 public enum LocationTypes {
     LADDER("Лестница"),
     FOODFACILITY("Пищевой отсек"),
-    BRIDGE("Мостик");
+    BRIDGE("Мостик"),
+    ROOM("Каюта");
 
     private final String name;
 

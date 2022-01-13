@@ -12,7 +12,7 @@ public enum Item {
     PIE("Космический пирог",30),
     CABBAGE("Космическая капуста", 7),
     SOUP("Космический суп", 18),
-    SAUSAGE("Космическая сосиска", 5),;
+    SAUSAGE("Космическая сосиска", 5);
 
     private final String name;
     private final int KKal;

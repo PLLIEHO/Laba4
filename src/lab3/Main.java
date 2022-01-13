@@ -11,7 +11,10 @@ public class Main {
         Location bridge = new Location(LocationTypes.BRIDGE);
         Human neznayka = new CrewMember("Незнайка", 10, States.NOTHUNGRY);
         Human ponchik = new CrewMember("Пончик", 9, States.HUNGRY);
-        Human spy = new Human("Незнакомец", 20, States.NOTHUNGRY);
+        Passenger spy = new Passenger("Незнакомец", 20, States.NOTHUNGRY);
+        Location room = new Location(LocationTypes.ROOM);
+        room.addHumanToLocation(spy);
+        spy.tellTheStory();
         System.out.println();
 
         bridge.addHumanToLocation(neznayka);
