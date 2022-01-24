@@ -1,10 +1,15 @@
 package lab3.human;
 
+import lab3.location.Conversation;
 import lab3.location.Location;
+import lab3.location.LocationTypes;
 import lab3.location.TimeSkip;
+
+import java.util.Random;
 
 public class Human extends AbstractHuman implements Edible, Sleepable {
     private Stomach stomach;
+    private Location currentLocation;
 
     public Human(String name, int age, States state) {
         super(name, age, state);
@@ -76,6 +81,7 @@ public class Human extends AbstractHuman implements Edible, Sleepable {
     }
 
 
+
     public void sleep(Location location, int time) {
         final int year = 8760;
         if (this.getState() == States.FED && location.getHumans().contains(this) && location.getZerogravs().contains(location)) {
@@ -113,6 +119,38 @@ public class Human extends AbstractHuman implements Edible, Sleepable {
         }
     }
 
+    public void smile(int isFunny){
+        switch(isFunny){
+            case 0:
+                System.out.println(this.getName() + " неловко улыбается.");
+                break;
+            case 1:
+                System.out.println(this.getName() + " вежливо молчит");
+                break;
+        }
+    }
+
+    public void canBeListened(boolean flag, Object o){
+        System.out.println(this.getName() + " прислушивается...");
+        if(flag&&o instanceof Human&&((Human) o).getCurrentLocation().equals(this.getCurrentLocation())){
+            System.out.println("Слышно дыхание " + o);
+        }
+        else if(flag&&o instanceof Location){
+            if(((Location) o).getType()== LocationTypes.BRIDGE&&((Location) o).getHumans().contains(this)) {
+                System.out.println(o + ": Слышно гудение приборов и гул двигателей");
+            }
+            else if(((Location) o).getType()== LocationTypes.FOODFACILITY&&((Location) o).getHumans().contains(this)) {
+                System.out.println(o + ": Слышен треск и гул рефрежераторов.");
+            }
+            else if(((Location) o).getType()== LocationTypes.ROOM&&((Location) o).getHumans().contains(this)) {
+                System.out.println(o + ": Слышна спокойна тихая музыка из борт-динамика.");
+            }
+        }
+        else if(flag&&o instanceof Conversation){
+            System.out.println("Слышен разговор " + ((Conversation) o).getHuman1().getName() + " и " + ((Conversation) o).getHuman2().getName());
+        } else if (!flag){System.out.println("Ничего не слышно. Совсем ничего.");}
+    }
+
     public String getDescription() {
         States state = this.getState();
         if (state.equals(States.HUNGRY)) {
@@ -130,4 +168,13 @@ public class Human extends AbstractHuman implements Edible, Sleepable {
             return "";
         }
     }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
+    }
 }
+

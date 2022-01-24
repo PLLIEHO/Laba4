@@ -1,5 +1,7 @@
 package lab3.human;
 
+import lab3.exceptions.NegativeAgeException;
+
 import java.util.Objects;
 
 public abstract class AbstractHuman {
@@ -12,7 +14,11 @@ public abstract class AbstractHuman {
 
     public AbstractHuman(String name, int age, States state) {
         this.name = name;
-        this.age = age;
+        if(age>=0){
+            this.age = age;
+        } else {
+            throw new NegativeAgeException("Ошибка. Возраст не может быть отрицательным.");
+        }
         this.state = state;
     }
 

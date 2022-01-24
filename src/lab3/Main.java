@@ -1,65 +1,57 @@
 package lab3;
 
 import lab3.human.*;
+import lab3.location.Conversation;
 import lab3.location.Location;
 import lab3.location.LocationTypes;
 import lab3.human.*;
+import lab3.location.TimeSkip;
+
+import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
+        Ponchik ponchik = new Ponchik("Пончик", 9, States.HUNGRY);
+        Passenger spy = new Passenger("Вася", 20, States.NOTHUNGRY);
+        Passenger viktor = new Passenger("Виктор", 20, States.NOTHUNGRY);
+        Passenger vitalya = new Passenger("Виталя", 20, States.NOTHUNGRY);
         Location bridge = new Location(LocationTypes.BRIDGE);
-        Human neznayka = new CrewMember("Незнайка", 10, States.NOTHUNGRY);
-        Human ponchik = new CrewMember("Пончик", 9, States.HUNGRY);
-        Passenger spy = new Passenger("Незнакомец", 20, States.NOTHUNGRY);
+        Location bridge1 = new Location(LocationTypes.BRIDGE);
         Location room = new Location(LocationTypes.ROOM);
+        TimeSkip.incPhase();
+        bridge.addHumanToLocation(vitalya);
         room.addHumanToLocation(spy);
-        spy.tellTheStory();
-        System.out.println();
+        room.addHumanToLocation(vitalya);
+        room.addHumanToLocation(viktor);
+        room.addHumanToLocation(ponchik);
+        spy.tellTheStory(room);
+        IJoke joker = new IJoke(){
+            public void joke(Location location){
+                int isFunny = new Random().nextInt(2);
+                for(int i = 0; i<location.getHumans().size(); i++){
+                    location.getHumans().get(i).smile(isFunny);
+                }
+                TimeSkip.incTime(180);
+            }
+        };
+        joker.joke(room);
 
-        bridge.addHumanToLocation(neznayka);
-        bridge.addHumanToLocation(ponchik);
-        bridge.addHumanToLocation(spy);
-        bridge.removeHumanToLocation(neznayka);
-        bridge.removeHumanToLocation(ponchik);
+        viktor.tellTheStory(room);
+        joker.joke(room);
+        room.gravityChange();
+        spy.sleep(room, 10);
+        viktor.sleep(room, 10);
+        vitalya.sleep(room, 10);
+        ponchik.sleep(room, 10);
         System.out.println();
-
-        Location ladder = new Location(LocationTypes.LADDER);
-        ladder.addHumanToLocation(neznayka);
-        ladder.addHumanToLocation(ponchik);
-        ladder.removeHumanToLocation(neznayka);
-        ladder.removeHumanToLocation(ponchik);
-        System.out.println();
-
-        Location food = new Location(LocationTypes.FOODFACILITY);
-        food.addHumanToLocation(neznayka);
-        food.addHumanToLocation(ponchik);
-        System.out.println();
-
-        Item chop = Item.CHOP;
-        System.out.println();
-        System.out.println(neznayka.getDescription());
-        neznayka.eat(chop);
-        neznayka.eat(chop);
-
-        System.out.println();
-        System.out.println(ponchik.getDescription());
-        ((CrewMember) ponchik).declare(food);
-        for (int i = 0; i < 11; i++) {
-            ((CrewMember) ponchik).randomEat();
-            FoodCheckable checker = x -> {
-                int var = 10 - x;
-                return "Можно съесть ещё " + var + " блюд";
-            };
-            System.out.println(checker.compare(i));
-        }
-        System.out.println(ponchik.getDescription());
-        food.gravityChange();
-        ponchik.sleep(food, 10);
-        food.removeHumanToLocation(ponchik);
-        System.out.println(ponchik.getDescription());
-        ponchik.wakeUp();
-        food.removeHumanToLocation(ponchik);
-        food.removeHumanToLocation(neznayka);
+        ponchik.eatFromBag(3);
+        IHear iHear;
+        iHear = (o) -> {
+            return o instanceof Human || o instanceof Conversation||(o instanceof Location && ((Location) o).getType() != LocationTypes.LADDER);
+        };
+        ponchik.canBeListened(iHear.hear(room), room);
+        Conversation convers = new Conversation(viktor, spy, room);
+        ponchik.canBeListened(iHear.hear(convers), convers);
     }
 }
