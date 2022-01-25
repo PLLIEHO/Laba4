@@ -17,19 +17,13 @@ public class Passenger extends Human{
             System.out.println(this + " рассказывает шутку всем обитателям локации " + location.getType() + ": ");
             this.storyTeller = true;
             class Story {
-                final int beginning = new Random().nextInt(3);
-                final int ending = new Random().nextInt(3) + 4;
+                final int beginning = new Random().nextInt(StorysBible.getBeginList().size());
+                final int ending = new Random().nextInt(StorysBible.getEndList().size());
 
                 private String createStory() {
                     String result = "";
-                    for (StorysBible beg : StorysBible.values()) {
-                        if (beg.getID() == beginning) {
-                            result += beg.getBody();
-                        }
-                        if (beg.getID() == ending) {
-                            result += beg.getBody();
-                        }
-                    }
+                    result += StorysBible.getBeginList().get(beginning);
+                    result += StorysBible.getEndList().get(ending);
                     return result;
                 }
             }

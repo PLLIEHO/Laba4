@@ -4,7 +4,8 @@ public enum LocationTypes {
     LADDER("Лестница"),
     FOODFACILITY("Пищевой отсек"),
     BRIDGE("Мостик"),
-    ROOM("Каюта");
+    ROOM("Каюта"),
+    VOID("Пустота");
 
     private final String name;
 

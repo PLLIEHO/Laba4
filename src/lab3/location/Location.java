@@ -9,8 +9,7 @@ import lab3.human.States;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lab3.location.LocationTypes.LADDER;
-import static lab3.location.LocationTypes.ROOM;
+import static lab3.location.LocationTypes.*;
 
 public class Location extends AbstractLocation implements ChangeLocation {
     private List<Human> humanList = new ArrayList<>();
@@ -30,7 +29,7 @@ public class Location extends AbstractLocation implements ChangeLocation {
             for(int i = 0; i <= locations.size()-1; i++){
                 if(locations.get(i).getType()==LocationTypes.BRIDGE){
                     locations.remove(i);
-                    this.type = null;
+                    this.type = VOID;
                     System.out.println("Дубликат мостика уничтожен.");
                     break;
                 }
@@ -57,11 +56,14 @@ public class Location extends AbstractLocation implements ChangeLocation {
         }
         private void bedMaker(){
             if (Location.this.getType()==LocationTypes.ROOM){
-                Bed bed1 = new Bed();
-                Bed bed2 = new Bed();
-                Bed bed3 = new Bed();
-                Bed bed4 = new Bed();
-                beds.add(bed1); beds.add(bed2); beds.add(bed3); beds.add(bed4);
+                for(int i=0; i <= Location.this.getHumans().size(); i++){
+                    beds.add(new Bed());
+                }
+                //Bed bed1 = new Bed();
+                //Bed bed2 = new Bed();
+                //Bed bed3 = new Bed();
+                //Bed bed4 = new Bed();
+                //beds.add(bed1); beds.add(bed2); beds.add(bed3); beds.add(bed4);
             }
         }
     }
@@ -70,12 +72,14 @@ public class Location extends AbstractLocation implements ChangeLocation {
         if (human.getState() != States.SLEEPY) {
             if (humanList.contains(human)) {
                 System.out.println(human.getName() + " уже находится на локации " + getType());
-            } else if (human instanceof CrewMember||this.getType()==ROOM) {
+            } else if ((human instanceof CrewMember||this.getType()==ROOM)&&this.type!=VOID) {
                 System.out.println("Человек " + human.getName() + " зашёл на локацию  " + getType());
                 humanList.add(human);
                 human.setCurrentLocation(this);
-            } else {
+            } else if(this.type!=VOID){
                 System.out.println("Человек " + human.getName() + " не может зайти на локацию  " + getType() + ". Причина: Низкий уровень доступа.");
+            } else {
+                System.out.println("Этой локации не существует. Проверьте данные.");
             }
         } else {System.out.println(human.getName() + " сейчас спит и никуда не пойдёт.");}
     }
@@ -112,7 +116,7 @@ public class Location extends AbstractLocation implements ChangeLocation {
             returns = getType() + " - это маленькая комната, на стенах которой закреплены кровати, которые выдвигаются с наступлением темноты.";
         }
         else{
-            returns = "Неизвестная локация. Страшновато здесь.";
+            returns = "Пустота. Раньше здесь была локация, но, похоже, она исчезла. Что же здесь случилось?";
         }
         return returns;
     }
@@ -144,13 +148,16 @@ public class Location extends AbstractLocation implements ChangeLocation {
 
     public void gravityChange(){
         Gravity gravity = new Gravity();
-        if(zerogravities.contains(this)) {
-            gravity.gravityOn(this);
-            zerogravities.remove(this);
-        }
-        else{
-            gravity.gravityOff(this);
-            zerogravities.add(this);
+        if(this.type!=VOID) {
+            if (zerogravities.contains(this)) {
+                gravity.gravityOn(this);
+                zerogravities.remove(this);
+            } else {
+                gravity.gravityOff(this);
+                zerogravities.add(this);
+            }
+        } else {
+            System.out.println("В пустоте гравитации не существует...");
         }
     };
 
